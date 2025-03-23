@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ucs_app/constants.dart';
 import 'package:flutter_ucs_app/home_page.dart';
+import 'package:flutter_ucs_app/create_user_page.dart';
+import 'package:flutter_ucs_app/forgot_password_page.dart'; // Import the ForgotPasswordPage
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -62,14 +64,24 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const CreateUserPage()),
+                      );
+                    },
                     child: const Text(
                       'CREATE USER',
                       style: TextStyle(color: primaryColor),
                     ),
                   ),
                   TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (_) => const ForgotPasswordPage()),
+                      );
+                    },
                     child: const Text(
                       'FORGOT PASSWORD?',
                       style: TextStyle(color: primaryColor),

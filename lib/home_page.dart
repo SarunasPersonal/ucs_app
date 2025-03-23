@@ -53,9 +53,9 @@ class HomePage extends StatelessWidget {
   }
 
   void navigateToLocation(BuildContext context, String location) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => BookingPage(location)),
-    );
+    Navigator.push(
+  context,
+  MaterialPageRoute(builder: (context) => BookingPage(location)),
+);
   }
 }
