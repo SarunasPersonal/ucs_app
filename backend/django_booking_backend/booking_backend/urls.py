@@ -4,6 +4,6 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('bookings.urls')),
-    path('api-token-auth/', obtain_auth_token),  # registers the token endpoint
+    path('api-token-auth/', obtain_auth_token),
+    path('api/', include('bookings.urls')),  # Include the URLs for the bookings app
 ]
