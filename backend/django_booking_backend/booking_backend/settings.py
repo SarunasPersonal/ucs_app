@@ -80,3 +80,4 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+ALLOWED_HOSTS = ['10.0.2.2', 'localhost', '127.0.0.1', 'YOUR_COMPUTER_IP']

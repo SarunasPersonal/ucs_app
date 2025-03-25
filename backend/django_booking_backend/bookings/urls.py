@@ -1,10 +1,10 @@
+from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import BookingViewSet
-
-router = DefaultRouter()
-router.register(r'bookings', BookingViewSet)
+from rest_framework.authtoken import views
+from .views import CustomAuthToken  # if in the same directory
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('admin/', admin.site.urls),
+    path('api-token-auth/', CustomAuthToken.as_view()),
+    path('api/', include('bookings.urls')),
 ]
