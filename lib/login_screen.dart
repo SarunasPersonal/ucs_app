@@ -10,32 +10,42 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 final storage = FlutterSecureStorage();
 
 Future<void> loginUser(String username, String password, BuildContext context) async {
-  final url = Uri.parse('http://127.0.0.1:8000/api-token-auth/');
-  final response = await http.post(
-    url,
-    headers: {'Content-Type': 'application/json'},
-    body: jsonEncode({
-      'username': username,
-      'password': password,
-    }),
-  );
-
-  if (response.statusCode == 200) {
-    final data = jsonDecode(response.body);
-    final token = data['token'];
-
-    // Store the token securely
-    await storage.write(key: 'auth_token', value: token);
-
-    // Navigate to the HomePage
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (_) => const HomePage()),
+  try {
+    final url = Uri.parse('http://127.0.0.1:8000/api-token-auth/');
+    final response = await http.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'username': username,
+        'password': password,
+      }),
     );
-  } else {
-    // Show an error message if login fails
+
+    print('Response Status Code: ${response.statusCode}');
+    print('Response Body: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final token = data['token'];
+
+      // Store the token securely
+      await storage.write(key: 'auth_token', value: token);
+
+      // Navigate to the HomePage
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
+    } else {
+      // Show an error message if login fails
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Login failed: ${response.body}')),
+      );
+    }
+  } catch (e) {
+    print('Login Error: $e');
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Invalid credentials. Please try again.')),
+      SnackBar(content: Text('An error occurred: $e')),
     );
   }
 }
@@ -97,7 +107,9 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const CreateUserPage()),
+                        MaterialPageRoute(
+                          builder: (_) => const CreateUserPage(),
+                        ),
                       );
                     },
                     child: const Text(
@@ -110,7 +122,9 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (_) => const ForgotPasswordPage()),
+                        MaterialPageRoute(
+                          builder: (_) => const ForgotPasswordPage(),
+                        ),
                       );
                     },
                     child: const Text(

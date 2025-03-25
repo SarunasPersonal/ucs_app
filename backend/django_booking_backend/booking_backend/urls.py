@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.authtoken.views import obtain_auth_token
+from .views import CustomAuthTokenView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api-token-auth/', obtain_auth_token),
-    path('api/', include('bookings.urls')),  # Include the URLs for the bookings app
+    path('api-token-auth/', CustomAuthTokenView.as_view()),
+    path('api/', include('bookings.urls')),
 ]

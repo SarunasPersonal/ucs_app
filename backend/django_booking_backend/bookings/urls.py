@@ -1,10 +1,14 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from rest_framework.authtoken import views
-from .views import CustomAuthToken  # if in the same directory
+from .views import BookingListCreateView, BookingRetrieveUpdateDestroyView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api-token-auth/', CustomAuthToken.as_view()),
-    path('api/', include('bookings.urls')),
+    # Authentication route (if you want a custom implementation)
+    # path('token/', CustomAuthToken.as_view(), name='api-token-auth'),
+    
+    # Booking list and create
+    path('bookings/', BookingListCreateView.as_view(), name='booking-list-create'),
+    
+    # Booking retrieve, update, and delete
+    path('bookings/<int:pk>/', BookingRetrieveUpdateDestroyView.as_view(), name='booking-detail'),
 ]
